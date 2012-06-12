@@ -46,10 +46,10 @@ WeiboSinaFactory.create('18602283721', '113456', {
                     //res.writeHead(200, {'Content-Type': 'text/plain'});
                     console.log(result);
                     if(result=='抱歉，您当前访问的帐号异常，暂时无法访问。') {
-                        res.send('FALSE');
+                        res.send('0');
                     }
                     else {
-                        res.send('TRUE');
+                        res.send('1');
                     }
 
                     nextPage();
@@ -74,6 +74,4 @@ WeiboSinaFactory.create('18602283721', '113456', {
     });
 
     app.listen(3000);
-
-
 });
