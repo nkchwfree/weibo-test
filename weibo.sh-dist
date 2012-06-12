@@ -1,0 +1,17 @@
+#!/bin/bash
+
+path=/home/web/weibo-test
+log=/home/web/weibo-test/run.log
+
+if [ $1 = "start" ]
+then
+    nohup node $path/weibo.js >> $log &
+elif [ $1 = "stop" ]
+then
+    ps xua | grep phantomjs | grep -v grep | awk '{print $2}' | xargs kill > /dev/null
+    ps xua | grep $path/weibo.js | grep -v grep | awk '{print $2}' | xargs kill > /dev/null
+else
+    echo "error command."
+fi
+
+
