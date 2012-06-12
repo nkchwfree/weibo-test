@@ -65,6 +65,7 @@ function WeiboSina(username, password, page, ph) {
 
     _self.open = function(url, callback){
         if(_is_login==true && _is_openning==false) {
+            _is_openning = true;
             console.log('open url:'+url);
             var is_call = false;
             page.open(url, function(status){
@@ -99,6 +100,7 @@ function WeiboSina(username, password, page, ph) {
     }
 
     function _openNext() {
+        console.log('Open Next URL:'+_open_list.length);
         if(_is_openning==false) {
             var obj;
             if(obj=_open_list.shift()) {
@@ -201,7 +203,7 @@ function WeiboSina(username, password, page, ph) {
 
         setInterval(function(){
             _openNext();
-        }, 100);
+        }, 3000);
 
         setInterval(function(){
             _self.open('http://weibo.com', function(){
