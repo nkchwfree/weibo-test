@@ -52,7 +52,6 @@ WeiboSinaFactory.create('18602283721', '113456', {
                         res.send('TRUE');
                     }
 
-
                     nextPage();
                 });
             }, 3000);
