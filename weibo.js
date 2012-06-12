@@ -33,28 +33,26 @@ WeiboSinaFactory.create('18602283721', '113456', {
     //检测帐号是否可用
     app.get('/valid/:id', function(req, res){
         weibo.open("http://weibo.com/"+req.params.id, function(obj, nextPage){
-            setTimeout(function(){
-                obj.evaluate(function(){
-                    try {
-                        //return $('.W_person_info dd a').text();
-                        return $(".page_error .note p").text();
-                    }
-                    catch(e) {
-                        return "-";
-                    }
-                }, function(result){
-                    //res.writeHead(200, {'Content-Type': 'text/plain'});
-                    console.log(result);
-                    if(result=='抱歉，您当前访问的帐号异常，暂时无法访问。') {
-                        res.send('0');
-                    }
-                    else {
-                        res.send('1');
-                    }
+            obj.evaluate(function(){
+                try {
+                    //return $('.W_person_info dd a').text();
+                    return $(".page_error .note p").text();
+                }
+                catch(e) {
+                    return "-";
+                }
+            }, function(result){
+                //res.writeHead(200, {'Content-Type': 'text/plain'});
+                console.log(result);
+                if(result=='抱歉，您当前访问的帐号异常，暂时无法访问。') {
+                    res.send('0');
+                }
+                else {
+                    res.send('1');
+                }
 
-                    nextPage();
-                });
-            }, 3000);
+                nextPage();
+            });
         });
     });
 
