@@ -2,7 +2,7 @@ var WeiboSinaFactory = require('./lib/sina_weibo').WeiboSinaFactory;
 
 WeiboSinaFactory.create('18602283721', '113456', {
     "check_interval":3000,
-    "breakheart":3600000
+    "breakheart":120000
 }, function(weibo){
     console.log('create a weibo client.');
     var app = require('express').createServer();
