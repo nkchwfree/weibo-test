@@ -1,8 +1,9 @@
 var WeiboSinaFactory = require('./lib/sina_weibo').WeiboSinaFactory;
+var config = require('./config/config').config;
 
-WeiboSinaFactory.create('18602283721', '113456', {
-    "check_interval":3000,
-    "breakheart":120000
+WeiboSinaFactory.create(config.username, config.password, config.page_size, {
+    "check_interval":config.check_interval,
+    "breakheart":config.breakheart
 }, function(weibo){
     console.log('create a weibo client.');
     var app = require('express').createServer();
@@ -45,7 +46,7 @@ WeiboSinaFactory.create('18602283721', '113456', {
                 //res.writeHead(200, {'Content-Type': 'text/plain'});
                 console.log(result);
                 if(result=='抱歉，您当前访问的帐号异常，暂时无法访问。') {
-                    res.send('0');
+                    res.send('2');
                 }
                 else {
                     res.send('1');
@@ -71,5 +72,5 @@ WeiboSinaFactory.create('18602283721', '113456', {
         });
     });
 
-    app.listen(3000);
+    app.listen(config.port);
 });
