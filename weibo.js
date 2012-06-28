@@ -33,11 +33,11 @@ WeiboSinaFactory.create(config.username, config.password, config.page_size, {
 
     //检测帐号是否可用
     app.get('/valid/:id', function(req, res){
-        weibo.open("http://weibo.com/"+req.params.id, function(obj, nextPage){
+        weibo.open("http://www.weibo.com/u/"+req.params.id, function(obj, nextPage){
             obj.evaluate(function(){
                 try {
                     //return $('.W_person_info dd a').text();
-                    return $(".page_error .note p").text();
+                    return $('body').html().match(/http:\/\/weibo\.com\/sorry\?usernotexists&retcode=6102/) || $(".page_error .note p").text()=='抱歉，您当前访问的帐号异常，暂时无法访问。';
                 }
                 catch(e) {
                     return "-";
@@ -45,7 +45,7 @@ WeiboSinaFactory.create(config.username, config.password, config.page_size, {
             }, function(result){
                 //res.writeHead(200, {'Content-Type': 'text/plain'});
                 console.log(result);
-                if(result=='抱歉，您当前访问的帐号异常，暂时无法访问。') {
+                if(result) {
                     res.send('2');
                 }
                 else {
