@@ -3,7 +3,8 @@ var config = require('./config/config').config;
 
 WeiboSinaFactory.create(config.username, config.password, config.page_size, {
     "check_interval":config.check_interval,
-    "breakheart":config.breakheart
+    "breakheart":config.breakheart,
+    timeout:30000
 }, function(weibo){
     console.log('create a weibo client.');
     var app = require('express').createServer();
@@ -15,10 +16,19 @@ WeiboSinaFactory.create(config.username, config.password, config.page_size, {
                 obj.evaluate(function(){
                     try {
                         //return $('.W_person_info dd a').text();
-                        return $(".user_atten").text();
+                        var arr = [];
+                        var doms = $(".user_atten strong").each(function(){
+                            arr.push($(this).text());
+                        });
+
+                        var result = {};
+                        result.follow = arr[0];
+                        result.fans = arr[1];
+                        result.weibo = arr[2];
+                        return result;
                     }
                     catch(e) {
-                        return "-";
+                        return "{}";
                     }
                 }, function(result){
                     //res.writeHead(200, {'Content-Type': 'text/plain'});
