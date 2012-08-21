@@ -1,8 +1,8 @@
 exports.config = {
     "timeout": 10000, //打开页面的超时设置，默认10秒
     "page_size": 5,   //并行处理的客户端数量，相当于打开几个客户端
-    "username": "18602283721",
-    "password": "113456",
+    "username": "xxxxx",
+    "password": "xxxxx",
     "check_interval":3000, //检查打开队列的时间间隔
     "breakheart":120000,    //为了保证登录，每个多长时间请求一下服务器页面
     "port":3000 //HTTP服务的端口号
