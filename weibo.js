@@ -15,19 +15,23 @@ WeiboSinaFactory.create(config.username, config.password, config.page_size, {
             setTimeout(function(){
                 obj.evaluate(function(){
                     try {
-                        //return $('.W_person_info dd a').text();
-                        var arr = [];
-                        var doms = $(".user_atten strong").each(function(){
-                            arr.push($(this).text());
-                        });
-
-                        var result = {};
-                        result.follow = arr[0];
-                        result.fans = arr[1];
-                        result.weibo = arr[2];
-                        return result;
+                        var doms = document.getElementsByClassName('user_atten');
+                        var matches;
+                        for(var i=0;i<doms.length; i++) {
+                            if(matches = doms[i].innerHTML.match(/<strong node-type=\"([a-z]+)\">(\d+)<\/strong>/g)) {
+                                var result = {},match;
+                                for(var j=0;j<matches.length;j++) {
+                                    if(match = matches[j].match(/<strong node-type=\"([a-z]+)\">(\d+)<\/strong>/)) {
+                                        result[match[1]] = match[2]*1;
+                                    }
+                                }
+                                return result;
+                            }
+                        }
+                        return {};
                     }
                     catch(e) {
+                        console.log(e);
                         return "{}";
                     }
                 }, function(result){
